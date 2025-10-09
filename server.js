@@ -4,12 +4,20 @@ const app = express();
 
 app.use(express.json());
 
+const logTimeMiddleware = (req, res, next) => {
+  const currentTime = new Date().toISOString();
+  console.log(`[${currentTime}] ${req.method} ${req.url}`);
+  next();
+};
+
+app.use(logTimeMiddleware);
+
 app.get("/hi", (req, res) => {
-  res.json("hello from root");
+  res.send("hello from root");
 });
 
 app.post("/post", (req, res) => {
-  res.json("hkll");
+  res.send("hkll " + req.body.name);
 });
 
 app.listen(8000, () => {
