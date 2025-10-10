@@ -1,4 +1,5 @@
 const express = require("express");
+const authRouter = require("./routers/auth");
 
 const app = express();
 
@@ -12,13 +13,7 @@ const logTimeMiddleware = (req, res, next) => {
 
 app.use(logTimeMiddleware);
 
-app.get("/hi", (req, res) => {
-  res.send("hello from root");
-});
-
-app.post("/post", (req, res) => {
-  res.send("hkll " + req.body.name);
-});
+app.use("/auth", authRouter);
 
 app.listen(8000, () => {
   console.log("server running on the port");
