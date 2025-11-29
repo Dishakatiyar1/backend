@@ -2,6 +2,8 @@ const express = require("express");
 const authRouter = require("./routers/auth");
 const { default: mongoose } = require("mongoose");
 const postRouter = require("./routers/post");
+const profileRouter = require("./routers/profile");
+const cookieParser = require("cookie-parser");
 
 const app = express();
 
@@ -13,11 +15,14 @@ const logTimeMiddleware = (req, _res, next) => {
 
 app.use(express.json());
 
+app.use(cookieParser());
+
 app.use("/auth", logTimeMiddleware, authRouter);
 
 // app.use(logTimeMiddleware);
 
 app.use("/", postRouter);
+app.use("/", profileRouter);
 
 mongoose
   .connect(

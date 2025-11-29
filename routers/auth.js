@@ -3,6 +3,7 @@ const express = require("express");
 const authRouter = express.Router();
 
 authRouter.get("/login", (req, res) => {
+  res.cookie("token", "disha");
   res.send("login");
 });
 
